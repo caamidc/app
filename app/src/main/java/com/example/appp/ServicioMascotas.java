@@ -19,7 +19,12 @@ public class ServicioMascotas extends AppCompatActivity {
         ListView listViewMascotas = findViewById(R.id.listViewMascotas);
 
         // Crear una lista de ejemplo
-        final String[] serviciosMascotas = {"Mascotas 1", "Mascotas 2", "Mascotas 3"};
+        final String[] serviciosMascotas = {"Antuki", "CatDog", "Animalistas"};
+
+        // Datos de ejemplo
+        final String ubicacionMascotas = "Circunvalacion 666";
+        final String telefonoMascotas = "912345678";
+        final String horarioMascotas = "Lun a Vie: 09:00am - 21:00pm";
 
         // Configurar el adaptador para el ListView
         listViewMascotas.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, serviciosMascotas));
@@ -36,9 +41,9 @@ public class ServicioMascotas extends AppCompatActivity {
 
                 // Proporcionar los datos del servicio de mascotas seleccionado
                 intent.putExtra("nombre", servicioSeleccionado);
-                intent.putExtra("ubicacion", "Ubicación " + servicioSeleccionado);
-                intent.putExtra("telefono", "Número de Teléfono " + servicioSeleccionado);
-                intent.putExtra("horario", "Horario " + servicioSeleccionado);
+                intent.putExtra("ubicacion", "Ubicación: " + ubicacionMascotas);
+                intent.putExtra("telefono", "Número de Teléfono: " + telefonoMascotas);
+                intent.putExtra("horario", "Horario: " + horarioMascotas);
 
                 // Ejemplo de servicios
                 intent.putExtra("servicios", new String[]{"Peluqueria canina - $35.000", "Consulta veterinaria - $20.000"});

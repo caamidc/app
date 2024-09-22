@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="?android:attr/windowBackground"
-        app:menu="@menu/bottombar"
+
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,7 +19,13 @@ public class Barberias extends AppCompatActivity {
         ListView listViewBarberias = findViewById(R.id.listviewbarberias);
 
         // Ejemplo de barberías
-        final String[] barberias = {"Barbería 1", "Barbería 2", "Barbería 3"};
+        final String[] barberias = {"CorteFresh", "LaBarber", "TopBarber"};
+
+        // Datos de ejemplo para cualquier barbería
+        final String ubicacionBarberia = "Calle falsa 123";
+        final String telefonoBarberia = "912345678";
+        final String horarioBarberia = "Lun a Vie: 09:00am - 20:00pm";
+
         listViewBarberias.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, barberias));
 
         // Configurar el listener para la selección de elementos
@@ -32,11 +38,11 @@ public class Barberias extends AppCompatActivity {
                 // Crear un Intent para iniciar la actividad DetalleServicio
                 Intent intent = new Intent(Barberias.this, DetalleSalon.class);
 
-                // Proporcionar los datos reales para la barbería seleccionada
+                // Proporcionar los datos de ejemplo para la barbería seleccionada
                 intent.putExtra("nombre", nombreBarberiaSeleccionada);
-                intent.putExtra("ubicacion", "Ubicación de " + nombreBarberiaSeleccionada);
-                intent.putExtra("telefono", "Número de Teléfono de " + nombreBarberiaSeleccionada);
-                intent.putExtra("horario", "Horario de " + nombreBarberiaSeleccionada);
+                intent.putExtra("ubicacion", "Ubicación: " + ubicacionBarberia);
+                intent.putExtra("telefono", "Número de Teléfono: " + telefonoBarberia);
+                intent.putExtra("horario", "Horario: " + horarioBarberia);
 
                 // Ejemplo de servicios
                 intent.putExtra("servicios", new String[]{"Corte de pelo - $10.000", "Degradado - $15.000"});

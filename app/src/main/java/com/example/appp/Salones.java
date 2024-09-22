@@ -19,7 +19,12 @@ public class Salones extends AppCompatActivity {
         ListView listViewSalones = findViewById(R.id.listViewSalones);
 
         // Ejemplo de datos de salones
-        final String[] salones = {"Salón 1", "Salón 2", "Salón 3"};
+        final String[] salones = {"Belleza unica", "Flowers", "TopBelleza"};
+
+        // Datos de ejemplo
+        final String ubicacionSalon = "Copayapu 777";
+        final String telefonoSalon = "912345678";
+        final String horarioSalon = "Lun a Vie: 11:00am - 19:00pm";
         listViewSalones.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, salones));
 
         listViewSalones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -33,12 +38,12 @@ public class Salones extends AppCompatActivity {
 
                 // Aquí debes proporcionar los datos reales para cada salón
                 intent.putExtra("nombre", nombreSalonSeleccionado);
-                intent.putExtra("ubicacion", "Ubicación del " + nombreSalonSeleccionado);
-                intent.putExtra("telefono", "Número de Teléfono del " + nombreSalonSeleccionado);
-                intent.putExtra("horario", "Horario del " + nombreSalonSeleccionado);
+                intent.putExtra("ubicacion", "Ubicación: " + ubicacionSalon);
+                intent.putExtra("telefono", "Número de Teléfono: " + telefonoSalon);
+                intent.putExtra("horario", "Horario: " + horarioSalon);
 
                 // Ejemplo de servicios, reemplaza con datos reales
-                intent.putExtra("servicios", new String[]{"Servicio 1 - $10.000", "Servicio 2 - $20.000"});
+                intent.putExtra("servicios", new String[]{"Maquillaje - $10.000", "Manicure y Pedicure - $35.000"});
 
                 startActivity(intent);
             }
