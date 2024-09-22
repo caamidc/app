@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, InicioPrestador.class);
                     startActivity(intent);
                 } else {
-                    // Mostrar un mensaje de error si las credenciales son incorrectas
-                    // Puedes agregar un Toast o una alerta aquí
+                    Toast.makeText(MainActivity.this, "Inicio de sesión inválido", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
         // Configurar el botón de registro
         Button registerButton = findViewById(R.id.button2);
+
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

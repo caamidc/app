@@ -47,7 +47,7 @@ public class Barberias extends AppCompatActivity {
                 // Ejemplo de servicios
                 intent.putExtra("servicios", new String[]{"Corte de pelo - $10.000", "Degradado - $15.000"});
 
-                // Iniciar la actividad DetalleServicioConCalendario
+                // Iniciar la actividad
                 startActivity(intent);
             }
         });

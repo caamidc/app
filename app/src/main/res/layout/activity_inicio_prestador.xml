@@ -19,6 +19,11 @@
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/bdd4666fdcba42069e53862f98720581"
         tools:ignore="MissingConstraints" />
+    <ListView
+        android:id="@+id/listViewServicios"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_empresa"
