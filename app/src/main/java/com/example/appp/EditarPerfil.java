@@ -2,6 +2,10 @@ package com.example.appp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +17,25 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class EditarPerfil extends AppCompatActivity {
 
+    private EditText editarnombre, editarcorreo, editarcontrasena;
+    private Button btnGuardar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil);
+
+        editarnombre = findViewById(R.id.editarnombre);
+        editarcorreo = findViewById(R.id.editarcorreo);
+        editarcontrasena = findViewById(R.id.editarcontrasena);
+        btnGuardar = findViewById(R.id.btn_guardar);
+
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guardarCambios();
+            }
+        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_home);
@@ -35,5 +54,14 @@ public class EditarPerfil extends AppCompatActivity {
             }
             return false;
         });
+    }
+    private void guardarCambios() {
+        String nombre = editarnombre.getText().toString();
+        String correo = editarcorreo.getText().toString();
+        String contrasena = editarcontrasena.getText().toString();
+
+        Toast.makeText(EditarPerfil.this, "Cambios guardados", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(EditarPerfil.this, Perfil.class);
+        startActivity(intent);
     }
 }
