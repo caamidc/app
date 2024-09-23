@@ -3,4 +3,8 @@
     <string name="title_activity_registro">registro</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="opcion_perfil">
+        <item>Editar perfil</item>
+        <item>Historial de reservas</item>
+    </string-array>
 </resources>
