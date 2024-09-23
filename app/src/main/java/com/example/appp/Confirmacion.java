@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class Confirmacion extends AppCompatActivity {
 
     @Override
@@ -47,6 +49,23 @@ public class Confirmacion extends AppCompatActivity {
 
             // Opcional: Cerrar la actividad actual
             finish();
+        });
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.bottom_home) {
+                Intent intentInicio = new Intent(Confirmacion.this, Inicio.class);
+                startActivity(intentInicio);
+                finish();
+                return true;
+            } else if (item.getItemId() == R.id.bottom_perfil) {
+                Intent intentPerfil = new Intent(Confirmacion.this, Perfil.class);
+                startActivity(intentPerfil);
+                finish();
+                return true;
+            }
+            return false;
         });
     }
 }

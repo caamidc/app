@@ -18,6 +18,23 @@ public class Inicio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
+
+        //menu navegacion
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.bottom_home) {
+                return true;
+            } else if (item.getItemId() == R.id.bottom_perfil) {
+                Intent intentPerfil = new Intent(this, Perfil.class);
+                startActivity(intentPerfil);
+                finish();
+                return true;
+            }
+            return false;
+        });
+
+
         // Encontrar el botón "Salones de belleza" por su ID
         Button salonesButton = findViewById(R.id.button3);
 

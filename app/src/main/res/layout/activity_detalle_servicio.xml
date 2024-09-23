@@ -20,7 +20,6 @@
         app:srcCompat="@drawable/bdd4666fdcba42069e53862f98720581"
         tools:ignore="MissingConstraints" />
 
-    <!-- información del servicio -->
     <TextView
         android:id="@+id/textViewNombre"
         android:layout_width="wrap_content"
@@ -84,4 +83,17 @@
         app:layout_constraintTop_toBottomOf="@id/calendarView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="445dp"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-1dp"
+        app:menu="@menu/bottom_menu"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

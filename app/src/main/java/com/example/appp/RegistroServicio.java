@@ -9,6 +9,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class RegistroServicio extends AppCompatActivity {
 
     @Override
@@ -46,6 +48,24 @@ public class RegistroServicio extends AppCompatActivity {
                 finish();
             }
         });
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.bottom_home) {
+                Intent intentInicio = new Intent(RegistroServicio.this, Inicio.class);
+                startActivity(intentInicio);
+                finish();
+                return true;
+            } else if (item.getItemId() == R.id.bottom_perfil) {
+                Intent intentPerfil = new Intent(RegistroServicio.this, Perfil.class);
+                startActivity(intentPerfil);
+                finish();
+                return true;
+            }
+            return false;
+        });
     }
 }
+
 

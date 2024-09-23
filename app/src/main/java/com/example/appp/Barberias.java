@@ -9,6 +9,8 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class Barberias extends AppCompatActivity {
 
     @Override
@@ -51,5 +53,24 @@ public class Barberias extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.bottom_home) {
+                Intent intentInicio = new Intent(Barberias.this, Inicio.class);
+                startActivity(intentInicio);
+                finish();
+                return true;
+            } else if (item.getItemId() == R.id.bottom_perfil) {
+                Intent intentPerfil = new Intent(Barberias.this, Perfil.class);
+                startActivity(intentPerfil);
+                finish();
+                return true;
+            }
+            return false;
+        });
     }
 }
+

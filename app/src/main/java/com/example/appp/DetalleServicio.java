@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 
 public class DetalleServicio extends AppCompatActivity {
@@ -76,6 +78,23 @@ public class DetalleServicio extends AppCompatActivity {
             // Iniciar la actividad de Confirmación
             startActivity(intent);
         });
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.bottom_home) {
+                Intent intentInicio = new Intent(DetalleServicio.this, Inicio.class);
+                startActivity(intentInicio);
+                finish();
+                return true;
+            } else if (item.getItemId() == R.id.bottom_perfil) {
+                Intent intentPerfil = new Intent(DetalleServicio.this, Perfil.class);
+                startActivity(intentPerfil);
+                finish();
+                return true;
+            }
+            return false;
+        });
     }
 
     private void cargarHorarios(String fecha) {
@@ -89,4 +108,5 @@ public class DetalleServicio extends AppCompatActivity {
         // Notificar al adaptador que los datos han cambiado
         adapter.notifyDataSetChanged();
     }
-}
+
+    }

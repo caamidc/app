@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class DetalleSalon extends AppCompatActivity {
 
     @Override
@@ -56,6 +58,25 @@ public class DetalleSalon extends AppCompatActivity {
             // Iniciar la actividad DetalleServicio
             startActivity(intent);
         });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.bottom_home) {
+                Intent intentInicio = new Intent(DetalleSalon.this, Inicio.class);
+                startActivity(intentInicio);
+                finish();
+                return true;
+            } else if (item.getItemId() == R.id.bottom_perfil) {
+                Intent intentPerfil = new Intent(DetalleSalon.this, Perfil.class);
+                startActivity(intentPerfil);
+                finish();
+                return true;
+            }
+            return false;
+        });
     }
 }
+
 

@@ -13,6 +13,11 @@
         android:theme="@style/Theme.Appp"
         tools:targetApi="31">
         <activity
+            android:name=".Perfil"
+            android:exported="false"
+            android:label="perfil"
+            android:theme="@style/Theme.Appp" />
+        <activity
             android:name=".Confirmacion"
             android:exported="false" />
         <activity
@@ -21,11 +26,6 @@
         <activity
             android:name=".DetalleSalon"
             android:exported="false" />
-        <activity
-            android:name=".Perfil"
-            android:exported="false"
-            android:label="perfil"
-            android:theme="@style/Theme.Appp" />
         <activity
             android:name=".RegistroServicio"
             android:exported="false"

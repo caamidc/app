@@ -121,4 +121,17 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTelefono"
         app:layout_constraintVertical_bias="0.244" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="445dp"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-1dp"
+        app:menu="@menu/bottom_menu"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
