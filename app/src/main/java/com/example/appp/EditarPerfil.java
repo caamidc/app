@@ -7,11 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -42,7 +38,7 @@ public class EditarPerfil extends AppCompatActivity {
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
-                Intent intentInicio = new Intent(EditarPerfil.this, Inicio.class);
+                Intent intentInicio = new Intent(EditarPerfil.this, InicioUsuario.class);
                 startActivity(intentInicio);
                 finish();
                 return true;

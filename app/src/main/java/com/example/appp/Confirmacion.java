@@ -44,7 +44,7 @@ public class Confirmacion extends AppCompatActivity {
             Toast.makeText(Confirmacion.this, "Reserva confirmada exitosamente", Toast.LENGTH_LONG).show();
 
             // Redirigir al usuario a la pantalla de inicio
-            Intent intent = new Intent(Confirmacion.this, Inicio.class);
+            Intent intent = new Intent(Confirmacion.this, InicioUsuario.class);
             startActivity(intent);
 
             // Opcional: Cerrar la actividad actual
@@ -55,7 +55,7 @@ public class Confirmacion extends AppCompatActivity {
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
-                Intent intentInicio = new Intent(Confirmacion.this, Inicio.class);
+                Intent intentInicio = new Intent(Confirmacion.this, InicioUsuario.class);
                 startActivity(intentInicio);
                 finish();
                 return true;

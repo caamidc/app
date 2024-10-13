@@ -1,73 +1,48 @@
 package com.example.appp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 public class ClinicasMedicas extends AppCompatActivity {
+
+    private ListView listViewClinicas;
+    private final String[] clinicas = {"Clínica Atacama", "Salud", "RedSalud"};
+    private final String ubicacionClinica = "Calle Falsa 321";
+    private final String telefonoClinica = "912345678";
+    private final String horarioClinica = "Lun a Vie: 08:00am - 18:00pm";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clinicas_medicas);
 
-        ListView listViewClinicas = findViewById(R.id.listviewclinicas);
+        listViewClinicas = findViewById(R.id.listviewclinicas);
 
-        // Crear una lista de ejemplo
-        final String[] clinicas = {"Clinica Atacama", "Salud", "RedSalud"};
-        listViewClinicas.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, clinicas));
+        // Configurar el ListView con los datos de clínicas
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, clinicas);
+        listViewClinicas.setAdapter(adapter);
 
-        // Agregar el Listener para manejar los clics en la lista
-        listViewClinicas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Obtener el nombre de la clínica seleccionada
-                String nombreClinicaSeleccionada = clinicas[position];
+        listViewClinicas.setOnItemClickListener((parent, view, position, id) -> {
+            // Obtener el nombre de la clínica seleccionada
+            String nombreClinicaSeleccionada = clinicas[position];
 
-                // Datos de ejemplo
-                final String ubicacionClinica = "Calle falsa 321";
-                final String telefonoClinica = "912345678";
-                final String horarioClinica = "Lun a Vie: 08:00am - 18:00pm";
+            // Crear una instancia del fragmento DetalleSalonFragment
+            DetalleSalonFragment detalleSalonFragment = DetalleSalonFragment.newInstance(
+                    nombreClinicaSeleccionada,
+                    "Ubicación: " + ubicacionClinica,
+                    "Número de Teléfono: " + telefonoClinica,
+                    "Horario: " + horarioClinica,
+                    new String[]{"Consulta general - $10.000", "Medicina infantil - $25.000"}
+            );
 
-                // Crear un Intent para iniciar la actividad DetalleSalon (o DetalleClinica)
-                Intent intent = new Intent(ClinicasMedicas.this, DetalleSalon.class);
-
-                // Proporcionar los datos de la clínica seleccionada
-                intent.putExtra("nombre", nombreClinicaSeleccionada);
-                intent.putExtra("ubicacion", "Ubicación: " + ubicacionClinica);
-                intent.putExtra("telefono", "Número de Teléfono: " + telefonoClinica);
-                intent.putExtra("horario", "Horario: " + horarioClinica);
-
-                // Ejemplo de servicios
-                intent.putExtra("servicios", new String[]{"Consulta general - $10.000", "Medicina infantil - $25.000"});
-
-                startActivity(intent);
-            }
-        });
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
-
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.bottom_home) {
-                Intent intentInicio = new Intent(ClinicasMedicas.this, Inicio.class);
-                startActivity(intentInicio);
-                finish();
-                return true;
-            } else if (item.getItemId() == R.id.bottom_perfil) {
-                Intent intentPerfil = new Intent(ClinicasMedicas.this, Perfil.class);
-                startActivity(intentPerfil);
-                finish();
-                return true;
-            }
-            return false;
+            // Cargar el fragmento en la vista
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, detalleSalonFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
     }
 }

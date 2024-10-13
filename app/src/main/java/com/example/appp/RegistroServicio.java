@@ -53,7 +53,7 @@ public class RegistroServicio extends AppCompatActivity {
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
-                Intent intentInicio = new Intent(RegistroServicio.this, Inicio.class);
+                Intent intentInicio = new Intent(RegistroServicio.this, InicioUsuario.class);
                 startActivity(intentInicio);
                 finish();
                 return true;

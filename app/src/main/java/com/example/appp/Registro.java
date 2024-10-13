@@ -43,7 +43,7 @@
                     @Override
                     public void onClick(View view) {
                         // Crear un Intent para abrir la actividad MainActivity
-                        Intent intent = new Intent(Registro.this, MainActivity.class);
+                        Intent intent = new Intent(Registro.this, Login.class);
                         // Iniciar la actividad MainActivity
                         startActivity(intent);
                         // Finalizar la actividad actual

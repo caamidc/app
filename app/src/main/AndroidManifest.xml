@@ -63,7 +63,7 @@
             android:label="salones"
             android:theme="@style/Theme.Appp" />
         <activity
-            android:name=".Inicio"
+            android:name=".InicioUsuario"
             android:exported="false"
             android:label="inicio"
             android:theme="@style/Theme.Appp" />
@@ -73,7 +73,7 @@
             android:label="@string/title_activity_registro"
             android:theme="@style/Theme.Appp" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

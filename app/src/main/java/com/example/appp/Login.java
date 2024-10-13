@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
 
                 // Validar las credenciales y redirigir a la pantalla correspondiente
                 if (email.equals("cami@gmail.com") && password.equals("123")) {
-                    Intent intent = new Intent(MainActivity.this, Inicio.class);
+                    Intent intent = new Intent(Login.this, InicioUsuario.class);
                     startActivity(intent);
                 } else if (email.equals("camila@gmail.com") && password.equals("321")) {
-                    Intent intent = new Intent(MainActivity.this, InicioPrestador.class);
+                    Intent intent = new Intent(Login.this, InicioPrestador.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(MainActivity.this, "Inicio de sesión inválido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Inicio de sesión inválido", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Registro.class);
+                Intent intent = new Intent(Login.this, Registro.class);
                 startActivity(intent);
             }
         });

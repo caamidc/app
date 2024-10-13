@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Inicio">
+    tools:context=".InicioUsuario">
 
     <ImageView
         android:id="@+id/imageView"
@@ -98,6 +98,5 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="-1dp"
         app:menu="@menu/bottom_menu"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

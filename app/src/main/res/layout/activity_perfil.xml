@@ -43,7 +43,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"
-        android:entries="@array/opcion_perfil" />
+        android:entries="@array/opcion_perfil"
+        android:textColorHint="@color/black"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

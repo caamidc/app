@@ -83,7 +83,7 @@ public class DetalleServicio extends AppCompatActivity {
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
-                Intent intentInicio = new Intent(DetalleServicio.this, Inicio.class);
+                Intent intentInicio = new Intent(DetalleServicio.this, InicioUsuario.class);
                 startActivity(intentInicio);
                 finish();
                 return true;

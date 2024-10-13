@@ -1,76 +1,49 @@
 package com.example.appp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 public class Barberias extends AppCompatActivity {
+
+    private ListView listViewBarberias;
+    private final String[] barberias = {"Barbería A", "Barbería B", "Barbería C"};
+    private final String ubicacionBarberia = "Ejemplo de ubicación";
+    private final String telefonoBarberia = "123456789";
+    private final String horarioBarberia = "Lunes a Viernes: 9:00 - 19:00";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barberias);
 
-        ListView listViewBarberias = findViewById(R.id.listviewbarberias);
+        listViewBarberias = findViewById(R.id.listviewbarberias);
 
-        // Ejemplo de barberías
-        final String[] barberias = {"CorteFresh", "LaBarber", "TopBarber"};
+        // Configurar el ListView con los datos de barberías
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, barberias);
+        listViewBarberias.setAdapter(adapter);
 
-        // Datos de ejemplo para cualquier barbería
-        final String ubicacionBarberia = "Calle falsa 123";
-        final String telefonoBarberia = "912345678";
-        final String horarioBarberia = "Lun a Vie: 09:00am - 20:00pm";
+        listViewBarberias.setOnItemClickListener((parent, view, position, id) -> {
+            // Obtener el nombre de la barbería seleccionada
+            String nombreBarberiaSeleccionada = barberias[position];
 
-        listViewBarberias.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, barberias));
+            // Crear una instancia del fragmento DetalleSalonFragment
+            DetalleSalonFragment detalleSalonFragment = DetalleSalonFragment.newInstance(
+                    nombreBarberiaSeleccionada,
+                    "Ubicación: " + ubicacionBarberia,
+                    "Número de Teléfono: " + telefonoBarberia,
+                    "Horario: " + horarioBarberia,
+                    new String[]{"Corte de pelo - $10.000", "Degradado - $15.000"}
+            );
 
-        // Configurar el listener para la selección de elementos
-        listViewBarberias.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Obtener el nombre de la barbería seleccionada
-                String nombreBarberiaSeleccionada = barberias[position];
-
-                // Crear un Intent para iniciar la actividad DetalleServicio
-                Intent intent = new Intent(Barberias.this, DetalleSalon.class);
-
-                // Proporcionar los datos de ejemplo para la barbería seleccionada
-                intent.putExtra("nombre", nombreBarberiaSeleccionada);
-                intent.putExtra("ubicacion", "Ubicación: " + ubicacionBarberia);
-                intent.putExtra("telefono", "Número de Teléfono: " + telefonoBarberia);
-                intent.putExtra("horario", "Horario: " + horarioBarberia);
-
-                // Ejemplo de servicios
-                intent.putExtra("servicios", new String[]{"Corte de pelo - $10.000", "Degradado - $15.000"});
-
-                // Iniciar la actividad
-                startActivity(intent);
-            }
-        });
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
-
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.bottom_home) {
-                Intent intentInicio = new Intent(Barberias.this, Inicio.class);
-                startActivity(intentInicio);
-                finish();
-                return true;
-            } else if (item.getItemId() == R.id.bottom_perfil) {
-                Intent intentPerfil = new Intent(Barberias.this, Perfil.class);
-                startActivity(intentPerfil);
-                finish();
-                return true;
-            }
-            return false;
+            // Cargar el fragmento en la vista
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, detalleSalonFragment) // Asume que tienes un contenedor para los fragmentos
+                    .addToBackStack(null) // Permitir volver al fragmento anterior
+                    .commit();
         });
     }
 }
-

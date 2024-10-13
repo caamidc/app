@@ -50,13 +50,15 @@ tools:context=".Registro">
         android:id="@+id/radioButtonPrestador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Prestador de servicios" />
+        android:text="Prestador de servicios"
+        android:textColorHint="@color/black"/>
 
     <RadioButton
         android:id="@+id/radioButtonUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Usuario" />
+        android:text="Usuario"
+        android:textColorHint="@color/black"/>
 </RadioGroup>
 
 <EditText
@@ -67,6 +69,7 @@ tools:context=".Registro">
     android:layout_marginStart="16dp"
     android:hint="Nombre completo"
     android:inputType="textPersonName"
+    android:textColorHint="@color/black"
     app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -80,6 +83,7 @@ tools:context=".Registro">
     android:layout_marginStart="16dp"
     android:hint="Correo electrónico"
     android:inputType="textEmailAddress"
+    android:textColorHint="@color/black"
     app:layout_constraintBottom_toTopOf="@+id/editTextPassword"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +97,7 @@ tools:context=".Registro">
     android:layout_marginStart="16dp"
     android:hint="Contraseña"
     android:inputType="textPassword"
+    android:textColorHint="@color/black"
     app:layout_constraintBottom_toTopOf="@+id/editTextConfirmPassword"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -106,6 +111,7 @@ tools:context=".Registro">
     android:layout_marginStart="16dp"
     android:hint="Confirmar contraseña"
     android:inputType="textPassword"
+    android:textColorHint="@color/black"
     app:layout_constraintBottom_toTopOf="@+id/registerButton"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"

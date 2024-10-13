@@ -3,11 +3,7 @@ package com.example.appp;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -23,7 +19,7 @@ public class Historial extends AppCompatActivity {
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.bottom_home) {
-                Intent intentInicio = new Intent(Historial.this, Inicio.class);
+                Intent intentInicio = new Intent(Historial.this, InicioUsuario.class);
                 startActivity(intentInicio);
                 finish();
                 return true;

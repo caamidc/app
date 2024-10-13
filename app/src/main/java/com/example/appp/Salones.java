@@ -1,73 +1,49 @@
 package com.example.appp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 public class Salones extends AppCompatActivity {
+
+    private ListView listViewSalones;
+    private final String[] salones = {"Belleza Única", "Flowers", "Top Belleza"};
+    private final String ubicacionSalon = "Copayapu 777";
+    private final String telefonoSalon = "912345678";
+    private final String horarioSalon = "Lun a Vie: 11:00am - 19:00pm";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_salones);
 
-        ListView listViewSalones = findViewById(R.id.listViewSalones);
+        listViewSalones = findViewById(R.id.listViewSalones);
 
-        // Ejemplo de datos de salones
-        final String[] salones = {"Belleza unica", "Flowers", "TopBelleza"};
+        // Configurar el ListView con los datos de salones
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, salones);
+        listViewSalones.setAdapter(adapter);
 
-        // Datos de ejemplo
-        final String ubicacionSalon = "Copayapu 777";
-        final String telefonoSalon = "912345678";
-        final String horarioSalon = "Lun a Vie: 11:00am - 19:00pm";
-        listViewSalones.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, salones));
+        listViewSalones.setOnItemClickListener((parent, view, position, id) -> {
+            // Obtener el nombre del salón seleccionado
+            String nombreSalonSeleccionado = salones[position];
 
-        listViewSalones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, android.view.View view, int position, long id) {
-                // Aquí obtienes el nombre del salón seleccionado
-                String nombreSalonSeleccionado = salones[position];
+            // Crear una instancia del fragmento DetalleSalonFragment
+            DetalleSalonFragment detalleSalonFragment = DetalleSalonFragment.newInstance(
+                    nombreSalonSeleccionado,
+                    "Ubicación: " + ubicacionSalon,
+                    "Número de Teléfono: " + telefonoSalon,
+                    "Horario: " + horarioSalon,
+                    new String[]{"Maquillaje - $10.000", "Manicure y Pedicure - $35.000"}
+            );
 
-                // Crear un Intent para iniciar la actividad DetalleSalon
-                Intent intent = new Intent(Salones.this, DetalleSalon.class);
-
-                // Aquí debes proporcionar los datos reales para cada salón
-                intent.putExtra("nombre", nombreSalonSeleccionado);
-                intent.putExtra("ubicacion", "Ubicación: " + ubicacionSalon);
-                intent.putExtra("telefono", "Número de Teléfono: " + telefonoSalon);
-                intent.putExtra("horario", "Horario: " + horarioSalon);
-
-                // Ejemplo de servicios, reemplaza con datos reales
-                intent.putExtra("servicios", new String[]{"Maquillaje - $10.000", "Manicure y Pedicure - $35.000"});
-
-                startActivity(intent);
-            }
-        });
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
-
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.bottom_home) {
-                Intent intentInicio = new Intent(Salones.this, Inicio.class);
-                startActivity(intentInicio);
-                finish();
-                return true;
-            } else if (item.getItemId() == R.id.bottom_perfil) {
-                Intent intentPerfil = new Intent(Salones.this, Perfil.class);
-                startActivity(intentPerfil);
-                finish();
-                return true;
-            }
-            return false;
+            // Cargar el fragmento en la vista
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, detalleSalonFragment) // Asume que tienes un contenedor para los fragmentos
+                    .addToBackStack(null) // Permitir volver al fragmento anterior
+                    .commit();
         });
     }
 }
-

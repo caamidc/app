@@ -6,11 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -43,7 +39,7 @@ public class Perfil extends AppCompatActivity {
             if (item.getItemId() == R.id.bottom_perfil) {
                 return true;
             } else if (item.getItemId() == R.id.bottom_home) {
-                Intent intentPerfil = new Intent(this, Inicio.class);
+                Intent intentPerfil = new Intent(this, InicioUsuario.class);
                 startActivity(intentPerfil);
                 finish();
                 return true;
