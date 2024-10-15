@@ -1,5 +1,6 @@
 package com.example.appp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,47 +10,94 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Objects;
+
 public class Login extends AppCompatActivity {
 
+
+    // Variables para Firebase
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+
+    private EditText etEmail, etPassword;
+    public Button btnLogin, btnRegister;
+
+    @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Encontrar los campos y botones por su ID
-        EditText emailField = findViewById(R.id.editTextTextEmailAddress);
-        EditText passwordField = findViewById(R.id.editTextTextPassword);
-        Button loginButton = findViewById(R.id.button);
+        // Inicializar Firebase Auth y Firestore
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Obtener los valores ingresados
-                String email = emailField.getText().toString().trim();
-                String password = passwordField.getText().toString().trim();
+        // Enlazar vistas con las IDs del XML
+        etEmail= findViewById(R.id.editTextTextEmailAddress);
+        etPassword = findViewById(R.id.editTextTextPassword);
+        btnLogin = findViewById(R.id.button);
+        btnRegister = findViewById(R.id.button2);
 
-                // Validar las credenciales y redirigir a la pantalla correspondiente
-                if (email.equals("cami@gmail.com") && password.equals("123")) {
-                    Intent intent = new Intent(Login.this, InicioUsuario.class);
-                    startActivity(intent);
-                } else if (email.equals("camila@gmail.com") && password.equals("321")) {
-                    Intent intent = new Intent(Login.this, InicioPrestador.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(Login.this, "Inicio de sesión inválido", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        btnLogin.setOnClickListener(v -> loginUser());
 
-        // Configurar el botón de registro
-        Button registerButton = findViewById(R.id.button2);
-
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Login.this, Registro.class);
-                startActivity(intent);
-            }
+        btnRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(Login.this, Registro.class);
+            startActivity(intent);
         });
     }
+
+    private void loginUser(){
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser currentUser = mAuth.getCurrentUser();
+                        if(currentUser !=null){
+                            checkUserType(currentUser.getUid());
+                        }
+                    } else {
+                        Toast.makeText(this, "Error al iniciar sesión: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void checkUserType(String userId){
+        // Verificar el tipo de usuario en Firestore
+        db.collection("usuarios").document(userId).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            // Redirigir a la actividad de usuario
+                            Intent intent = new Intent(Login.this, InicioUsuario.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            // Comprobar si es un prestador de servicios
+                            db.collection("prestadores").document(userId).get()
+                                    .addOnCompleteListener(task1 -> {
+                                        if (task1.isSuccessful() && task1.getResult() != null && task1.getResult().exists()) {
+                                            // Redirigir a la actividad de prestador de servicios
+                                            Intent intent = new Intent(Login.this, InicioPrestador.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            Toast.makeText(this, "Usuario no encontrado", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    } else {
+                        Toast.makeText(this, "Error al verificar el tipo de usuario: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 }
+
+
