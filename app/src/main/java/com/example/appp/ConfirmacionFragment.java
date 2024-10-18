@@ -24,10 +24,8 @@ public class ConfirmacionFragment extends Fragment {
     private String telefono;
     private String horario;
 
-    // Constructor vacío requerido
     public ConfirmacionFragment() {}
 
-    // Método newInstance para crear una instancia del fragmento y pasar los datos
     public static ConfirmacionFragment newInstance(String nombre, String ubicacion, String telefono, String horario) {
         ConfirmacionFragment fragment = new ConfirmacionFragment();
         Bundle args = new Bundle();
@@ -55,29 +53,22 @@ public class ConfirmacionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_confirmacion, container, false);
 
-        // Referencias a los TextViews
         TextView textViewNombre = view.findViewById(R.id.textViewNombre);
         TextView textViewUbicacion = view.findViewById(R.id.textViewUbicacion);
         TextView textViewTelefono = view.findViewById(R.id.textViewTelefono);
         TextView textViewHorario = view.findViewById(R.id.textViewHorario);
 
-        // Establecer los textos
         textViewNombre.setText(nombre);
         textViewUbicacion.setText(ubicacion);
         textViewTelefono.setText(telefono);
         textViewHorario.setText(horario);
 
-        // Botón de confirmación
         Button buttonConfirmar = view.findViewById(R.id.buttonConfirmar);
         buttonConfirmar.setOnClickListener(v -> {
-            // Mostrar mensaje de éxito
             Toast.makeText(getContext(), "Reserva confirmada exitosamente", Toast.LENGTH_LONG).show();
-
-            // Redirigir a la pantalla de inicio o donde sea necesario
-            // Aquí puedes añadir la lógica para redirigir a otra pantalla si es necesario
+            // Lógica adicional si es necesaria
         });
 
         return view;
     }
 }
-

@@ -1,11 +1,13 @@
 package com.example.appp;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Barberias extends AppCompatActivity {
 
@@ -20,17 +22,14 @@ public class Barberias extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barberias);
 
+        // Configuración del ListView
         listViewBarberias = findViewById(R.id.listviewbarberias);
-
-        // Configurar el ListView con los datos de barberías
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, barberias);
         listViewBarberias.setAdapter(adapter);
 
+        // Manejo de la selección en el ListView
         listViewBarberias.setOnItemClickListener((parent, view, position, id) -> {
-            // Obtener el nombre de la barbería seleccionada
             String nombreBarberiaSeleccionada = barberias[position];
-
-            // Crear una instancia del fragmento DetalleSalonFragment
             DetalleSalonFragment detalleSalonFragment = DetalleSalonFragment.newInstance(
                     nombreBarberiaSeleccionada,
                     "Ubicación: " + ubicacionBarberia,
@@ -39,11 +38,24 @@ public class Barberias extends AppCompatActivity {
                     new String[]{"Corte de pelo - $10.000", "Degradado - $15.000"}
             );
 
-            // Cargar el fragmento en la vista
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, detalleSalonFragment) // Asume que tienes un contenedor para los fragmentos
-                    .addToBackStack(null) // Permitir volver al fragmento anterior
+                    .replace(R.id.fragment_container, detalleSalonFragment)
+                    .addToBackStack(null)
                     .commit();
         });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(this::handleBottomNavigation);
+    }
+
+    private boolean handleBottomNavigation(MenuItem item) {
+        if (item.getItemId() == R.id.bottom_home) {
+            startActivity(new Intent(this, InicioUsuario.class));
+            return true;
+        } else if (item.getItemId() == R.id.bottom_perfil) {
+            startActivity(new Intent(this, Perfil.class));
+            return true;
+        }
+        return false;
     }
 }

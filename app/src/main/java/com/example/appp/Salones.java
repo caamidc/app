@@ -1,19 +1,26 @@
 package com.example.appp;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class Salones extends AppCompatActivity {
 
-    private ListView listViewSalones;
-    private final String[] salones = {"Belleza Única", "Flowers", "Top Belleza"};
-    private final String ubicacionSalon = "Copayapu 777";
-    private final String telefonoSalon = "912345678";
-    private final String horarioSalon = "Lun a Vie: 11:00am - 19:00pm";
+    public ListView listViewSalones;
+    private FirebaseFirestore db;
+    private final List<Empresa> listaEmpresas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,29 +28,55 @@ public class Salones extends AppCompatActivity {
         setContentView(R.layout.activity_salones);
 
         listViewSalones = findViewById(R.id.listViewSalones);
+        db = FirebaseFirestore.getInstance();
 
-        // Configurar el ListView con los datos de salones
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, salones);
-        listViewSalones.setAdapter(adapter);
+        // Configurar BottomNavigationView
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_home); // Por defecto, selecciona "Inicio"
+        bottomNavigationView.setOnItemSelectedListener(this::handleBottomNavigation);
 
-        listViewSalones.setOnItemClickListener((parent, view, position, id) -> {
-            // Obtener el nombre del salón seleccionado
-            String nombreSalonSeleccionado = salones[position];
+        // Cargar los salones desde Firestore
+        cargarSalones();
+    }
 
-            // Crear una instancia del fragmento DetalleSalonFragment
-            DetalleSalonFragment detalleSalonFragment = DetalleSalonFragment.newInstance(
-                    nombreSalonSeleccionado,
-                    "Ubicación: " + ubicacionSalon,
-                    "Número de Teléfono: " + telefonoSalon,
-                    "Horario: " + horarioSalon,
-                    new String[]{"Maquillaje - $10.000", "Manicure y Pedicure - $35.000"}
-            );
+    private void cargarSalones() {
+        db.collection("Empresas")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        int count = 0;
+                        listaEmpresas.clear();
 
-            // Cargar el fragmento en la vista
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, detalleSalonFragment) // Asume que tienes un contenedor para los fragmentos
-                    .addToBackStack(null) // Permitir volver al fragmento anterior
-                    .commit();
-        });
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            count++;
+                            Empresa empresa = document.toObject(Empresa.class);
+                            listaEmpresas.add(empresa);
+                        }
+
+                        Toast.makeText(this, "Total de salones recuperados: " + count, Toast.LENGTH_SHORT).show();
+
+                        EmpresaAdapter adapter = new EmpresaAdapter(this, listaEmpresas);
+                        listViewSalones.setAdapter(adapter);
+
+                        if (count == 0) {
+                            Toast.makeText(this, "No se encontraron salones.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(this, "Error al cargar salones: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private boolean handleBottomNavigation(MenuItem item) {
+        if (item.getItemId() == R.id.bottom_home) {
+            // Si ya estamos en la pantalla de inicio, no hacer nada
+            return true;
+        } else if (item.getItemId() == R.id.bottom_perfil) {
+            // Navegar a la pantalla de perfil
+            startActivity(new Intent(this, Perfil.class));
+            finish();
+            return true;
+        }
+        return false;
     }
 }

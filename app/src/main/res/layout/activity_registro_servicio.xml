@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/registroServicio"
@@ -21,6 +22,7 @@
         app:srcCompat="@drawable/bdd4666fdcba42069e53862f98720581"
         tools:ignore="MissingConstraints" />
 
+    <!-- Título del formulario -->
     <TextView
         android:id="@+id/textViewTitulo"
         android:layout_width="wrap_content"
@@ -29,13 +31,26 @@
         android:textColor="#000000"
         android:textSize="50dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editTextEmpresaNombre"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerCategoria"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2" />
 
+    <!-- Menú desplegable para seleccionar la categoría -->
+    <Spinner
+        android:id="@+id/spinnerCategoria"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:entries="@array/categorias_array"
+        app:layout_constraintBottom_toTopOf="@+id/editTextEmpresaNombre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitulo" />
+
+    <!-- Campos de texto para los detalles del servicio -->
     <EditText
         android:id="@+id/editTextEmpresaNombre"
         android:layout_width="0dp"
@@ -47,7 +62,7 @@
         app:layout_constraintBottom_toTopOf="@+id/editTextUbicacion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewTitulo" />
+        app:layout_constraintTop_toBottomOf="@id/spinnerCategoria" />
 
     <EditText
         android:id="@+id/editTextUbicacion"
@@ -90,6 +105,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextHorario" />
 
+    <!-- Botón para guardar la empresa -->
     <Button
         android:id="@+id/buttonGuardarEmpresa"
         android:layout_width="wrap_content"
@@ -102,6 +118,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextServicios" />
 
+    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="445dp"
@@ -114,4 +131,5 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="-1dp"
         app:menu="@menu/bottom_menu"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,13 @@
 package com.example.appp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ClinicasMedicas extends AppCompatActivity {
 
@@ -19,17 +22,14 @@ public class ClinicasMedicas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clinicas_medicas);
 
+        // Configuración del ListView
         listViewClinicas = findViewById(R.id.listviewclinicas);
-
-        // Configurar el ListView con los datos de clínicas
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, clinicas);
         listViewClinicas.setAdapter(adapter);
 
+        // Manejo de la selección en el ListView
         listViewClinicas.setOnItemClickListener((parent, view, position, id) -> {
-            // Obtener el nombre de la clínica seleccionada
             String nombreClinicaSeleccionada = clinicas[position];
-
-            // Crear una instancia del fragmento DetalleSalonFragment
             DetalleSalonFragment detalleSalonFragment = DetalleSalonFragment.newInstance(
                     nombreClinicaSeleccionada,
                     "Ubicación: " + ubicacionClinica,
@@ -38,12 +38,26 @@ public class ClinicasMedicas extends AppCompatActivity {
                     new String[]{"Consulta general - $10.000", "Medicina infantil - $25.000"}
             );
 
-            // Cargar el fragmento en la vista
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, detalleSalonFragment)
                     .addToBackStack(null)
                     .commit();
         });
+
+        // Implementación del BottomNavigationView
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(this::handleBottomNavigation);
+    }
+
+    private boolean handleBottomNavigation(MenuItem item) {
+        if (item.getItemId() == R.id.bottom_home) {
+            startActivity(new Intent(this, InicioUsuario.class));
+            return true;
+        } else if (item.getItemId() == R.id.bottom_perfil) {
+            startActivity(new Intent(this, Perfil.class));
+            return true;
+        }
+        return false;
     }
 }
 

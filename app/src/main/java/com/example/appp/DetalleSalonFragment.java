@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Objects;
+
 public class DetalleSalonFragment extends Fragment {
 
     private static final String ARG_NOMBRE = "nombre";
@@ -38,6 +40,7 @@ public class DetalleSalonFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_detalle_salon, container, false);
 
         // Obtener datos de los argumentos
+        assert getArguments() != null;
         String nombre = getArguments().getString(ARG_NOMBRE);
         String ubicacion = getArguments().getString(ARG_UBICACION);
         String telefono = getArguments().getString(ARG_TELEFONO);
@@ -58,7 +61,8 @@ public class DetalleSalonFragment extends Fragment {
         textViewHorario.setText(horario);
 
         // Configurar el ListView de servicios
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, servicios);
+        assert servicios != null;
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, servicios);
         listViewServicios.setAdapter(adapter);
 
         // Listener para seleccionar un servicio
