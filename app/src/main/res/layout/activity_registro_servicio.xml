@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".RegistroServicio">
 
+    <!-- Título del formulario -->
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
@@ -22,14 +23,13 @@
         app:srcCompat="@drawable/bdd4666fdcba42069e53862f98720581"
         tools:ignore="MissingConstraints" />
 
-    <!-- Título del formulario -->
     <TextView
         android:id="@+id/textViewTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registra tus Servicio"
+        android:text="Registra tu Servicio"
         android:textColor="#000000"
-        android:textSize="50dp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/spinnerCategoria"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:entries="@array/categorias_array"
         app:layout_constraintBottom_toTopOf="@+id/editTextEmpresaNombre"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,38 +71,64 @@
         android:layout_marginStart="16dp"
         android:hint="Ubicación"
         android:textColorHint="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/editTextHorario"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTelefono"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextEmpresaNombre" />
 
     <EditText
-        android:id="@+id/editTextHorario"
+        android:id="@+id/editTextTelefono"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:hint="Horario"
+        android:hint="Número de Teléfono"
         android:textColorHint="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/editTextServicios"
+        app:layout_constraintBottom_toTopOf="@+id/editTextHorarioApertura"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextUbicacion" />
 
     <EditText
-        android:id="@+id/editTextServicios"
+        android:id="@+id/editTextHorarioApertura"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:hint="Tipos de Servicios"
+        android:hint="Horario de apertura (ejemplo: 08:00am)"
         android:textColorHint="@color/black"
-        android:minHeight="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextHorarioCierre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextTelefono" />
+
+    <EditText
+        android:id="@+id/editTextHorarioCierre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:hint="Horario de cierre (ejemplo: 06:00pm)"
+        android:textColorHint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/editTextServicios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextHorarioApertura" />
+
+    <EditText
+        android:id="@+id/editTextServicios"
+        android:layout_width="376dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:gravity="top|start"
+        android:hint="Servicios disponibles y su valor"
+        android:minHeight="100dp"
+        android:textColorHint="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/buttonGuardarEmpresa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextHorario" />
+        app:layout_constraintTop_toBottomOf="@id/editTextHorarioCierre" />
 
     <!-- Botón para guardar la empresa -->
     <Button
@@ -126,10 +151,9 @@
         android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-1dp"
-        app:menu="@menu/bottom_menu"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
