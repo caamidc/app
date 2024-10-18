@@ -9,6 +9,10 @@ public class Empresa {
     private String servicios;             // Servicios disponibles
     private String categoria;             // Categoría de la empresa
 
+    // Constructor por defecto
+    public Empresa() {
+        // Necesario para Firestore
+    }
     // Constructor
     public Empresa(String nombre, String ubicacion, String telefono, String horarioApertura, String horarioCierre, String servicios, String categoria) {
         this.nombre = nombre;

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
@@ -61,9 +63,7 @@ public class DetalleServicioFragment extends Fragment {
         TextView textViewNombreSalon = view.findViewById(R.id.textViewNombreSalon);
         TextView textViewUbicacion = view.findViewById(R.id.textViewUbicacion);
         TextView textViewTelefono = view.findViewById(R.id.textViewTelefono);
-        TextView textViewHorario = view.findViewById(R.id.textViewHorario);
         TextView textViewNombreServicio = view.findViewById(R.id.textViewNombreServicio);
-        TextView textViewPrecio = view.findViewById(R.id.textViewPrecio);
         CalendarView calendarView = view.findViewById(R.id.calendarView);
         listViewHorarios = view.findViewById(R.id.listViewHorarios);
 
@@ -82,14 +82,14 @@ public class DetalleServicioFragment extends Fragment {
         });
 
         listViewHorarios.setOnItemClickListener((parent, view1, position, id) -> {
-            horarioSeleccionado = horariosList.get(position); // Guardar el horario seleccionado
+            horarioSeleccionado = horariosList.get(position);
 
             // Navegar a ConfirmacionFragment
             FragmentManager fragmentManager = getParentFragmentManager();
             ConfirmacionFragment confirmacionFragment = ConfirmacionFragment.newInstance(nombre, ubicacion, telefono, horarioSeleccionado);
             fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, confirmacionFragment) // Asegúrate de usar el ID correcto del contenedor
-                    .addToBackStack(null) // Para poder volver al fragmento anterior
+                    .replace(R.id.fragment_container, confirmacionFragment)
+                    .addToBackStack(null)
                     .commit();
         });
 
@@ -98,13 +98,37 @@ public class DetalleServicioFragment extends Fragment {
 
     private void cargarHorariosDisponibles(String fecha) {
         horariosList.clear();
-        horariosList.add("09:00 AM");
-        horariosList.add("10:00 AM");
-        horariosList.add("11:00 AM");
-        horariosList.add("12:00 PM");
-        horariosList.add("01:00 PM");
 
-        adapter.notifyDataSetChanged();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("prestadores").document("empresa")
+                .collection("Empresa")
+                .whereEqualTo("nombre", nombre) // Cambia esto según cómo busques la empresa
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Empresa empresa = document.toObject(Empresa.class);
+                            String horarioApertura = empresa.getHorarioApertura();
+                            String horarioCierre = empresa.getHorarioCierre();
+                            generarHorariosDisponibles(horarioApertura, horarioCierre);
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No se encontró la empresa", Toast.LENGTH_SHORT).show();
+                    }
+                    adapter.notifyDataSetChanged(); // Notificar que el adapter ha cambiado
+                });
+    }
+
+    private void generarHorariosDisponibles(String apertura, String cierre) {
+        String[] aperturaSplit = apertura.split(":");
+        String[] cierreSplit = cierre.split(":");
+
+        int horaApertura = Integer.parseInt(aperturaSplit[0]);
+        int horaCierre = Integer.parseInt(cierreSplit[0]);
+
+        for (int i = horaApertura; i <= horaCierre; i++) {
+            horariosList.add(i + ":00 AM"); // Cambia AM por PM si es necesario
+        }
     }
 }
 
