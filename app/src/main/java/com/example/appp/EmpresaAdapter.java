@@ -1,37 +1,79 @@
 package com.example.appp;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class EmpresaAdapter extends ArrayAdapter<Empresa> {
-    private final Context context;
-    private final List<Empresa> empresas;
+public class EmpresaAdapter extends RecyclerView.Adapter<EmpresaAdapter.EmpresaViewHolder> {
 
-    public EmpresaAdapter(Context context, List<Empresa> empresas) {
-        super(context, R.layout.item_empresa, empresas);
-        this.context = context;
-        this.empresas = empresas;
+    private List<Empresa> empresaList = new ArrayList<>();
+
+    private OnItemClickListener listener;
+
+    // Constructor que recibe la lista de empresas y el listener para manejar los eventos de click
+    public EmpresaAdapter(List<Empresa> empresaList, OnItemClickListener listener) {
+        this.empresaList = empresaList;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        @SuppressLint("ViewHolder") View rowView = inflater.inflate(R.layout.item_empresa, parent, false);
+    public EmpresaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Infla el layout para cada elemento de la lista (item_empresa.xml)
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empresa, parent, false);
+        return new EmpresaViewHolder(view);
+    }
 
-        TextView textViewNombre = rowView.findViewById(R.id.textViewNombre);
-        textViewNombre.setText(empresas.get(position).getNombre());
+    @Override
+    public void onBindViewHolder(@NonNull EmpresaViewHolder holder, int position) {
+        // Obtiene la empresa actual de la lista
+        Empresa empresa = empresaList.get(position);
 
-        return rowView;
+        // Asigna los valores a los TextViews de nombre
+        holder.tvNombreEmpresa.setText(empresa.getNombre());
+
+
+        // Botón Editar
+        holder.btnEditar.setOnClickListener(v -> listener.onEditarClick(empresa));
+
+        // Botón Eliminar -
+        holder.btnEliminar.setOnClickListener(v -> listener.onEliminarClick(empresa));
+    }
+
+    @Override
+    public int getItemCount() {
+        // Devuelve el tamaño de la lista de empresas
+        return empresaList != null ? empresaList.size() : 0;
+
+    }
+
+    // ViewHolder que almacena las referencias a las vistas para cada elemento de la lista
+    public static class EmpresaViewHolder extends RecyclerView.ViewHolder {
+        TextView tvNombreEmpresa;
+        Button btnEditar, btnEliminar;
+
+        public EmpresaViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            // Inicializa las vistas
+            tvNombreEmpresa = itemView.findViewById(R.id.tvNombreEmpresa);
+            btnEditar = itemView.findViewById(R.id.btnEditar);
+            btnEliminar = itemView.findViewById(R.id.btnEliminar);
+        }
+    }
+
+    // Interfaz para manejar los eventos de click en Editar y Eliminar
+    public interface OnItemClickListener {
+        void onEditarClick(Empresa empresa);
+        void onEliminarClick(Empresa empresa);
     }
 }
 

@@ -1,20 +1,22 @@
 package com.example.appp;
 
 public class Empresa {
+
+    private String id;               // Identificador del prestador
     private String nombre;               // Nombre de la empresa
     private String ubicacion;            // Ubicación de la empresa
-    private String telefono;              // Número de teléfono
+    private String telefono;             // Número de teléfono
     private String horarioApertura;      // Horario de apertura
     private String horarioCierre;        // Horario de cierre
-    private String servicios;             // Servicios disponibles
-    private String categoria;             // Categoría de la empresa
-
-    // Constructor por defecto
+    private String servicios;            // Servicios disponibles
+    private String categoria;            // Categoría de la empresa
+    private String uidPrestador;
+    // Constructor vacío necesario para Firebase
     public Empresa() {
-        // Necesario para Firestore
     }
-    // Constructor
-    public Empresa(String nombre, String ubicacion, String telefono, String horarioApertura, String horarioCierre, String servicios, String categoria) {
+
+    // Constructor con parámetros
+    public Empresa(String nombre, String ubicacion, String telefono, String horarioApertura, String horarioCierre, String servicios, String categoria, String uidPrestador) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.telefono = telefono;
@@ -22,9 +24,19 @@ public class Empresa {
         this.horarioCierre = horarioCierre;
         this.servicios = servicios;
         this.categoria = categoria;
+        this.uidPrestador = uidPrestador; // Inicializar el UID del prestador
     }
 
-    // Getters
+    // Getters y Setters
+    public String getUidPrestador() {
+        return uidPrestador;
+    }
+
+    public void setUidPrestador(String uidPrestador) {
+        this.uidPrestador = uidPrestador;
+    }
+
+
     public String getNombre() {
         return nombre;
     }

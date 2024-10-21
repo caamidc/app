@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegistroServicio extends AppCompatActivity {
@@ -65,16 +66,19 @@ public class RegistroServicio extends AppCompatActivity {
     }
 
     private void guardarEmpresa() {
-        String nombre = etNombreEmpresa.getText().toString().trim();  // Nombre de la empresa
-        String ubicacion = etUbicacion.getText().toString().trim();  // Ubicación
-        String telefono = etTelefono.getText().toString().trim();    // Teléfono
-        String horarioApertura = etHorarioApertura.getText().toString().trim(); // Horario de apertura
-        String horarioCierre = etHorarioCierre.getText().toString().trim(); // Horario de cierre
-        String servicios = etServicios.getText().toString().trim(); // Servicios
-        String categoria = spinnerCategoria.getSelectedItem().toString(); // Categoría
+        String nombre = etNombreEmpresa.getText().toString().trim();
+        String ubicacion = etUbicacion.getText().toString().trim();
+        String telefono = etTelefono.getText().toString().trim();
+        String horarioApertura = etHorarioApertura.getText().toString().trim();
+        String horarioCierre = etHorarioCierre.getText().toString().trim();
+        String servicios = etServicios.getText().toString().trim();
+        String categoria = spinnerCategoria.getSelectedItem().toString();
+
+        // Obtener el UID del usuario autenticado
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         // Crear un objeto Empresa con los datos
-        Empresa empresa = new Empresa(nombre, ubicacion, telefono, horarioApertura, horarioCierre, servicios, categoria);
+        Empresa empresa = new Empresa(nombre, ubicacion, telefono, horarioApertura, horarioCierre, servicios, categoria, uid); // Agregar el UID
 
         // Registrar la empresa en la subcolección "Empresa" de la colección "prestadores"
         db.collection("prestadores").document("empresa")
@@ -88,6 +92,4 @@ public class RegistroServicio extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Error al registrar la empresa: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
-    }
-}
-
+    }}

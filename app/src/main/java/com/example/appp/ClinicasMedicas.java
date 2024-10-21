@@ -99,19 +99,20 @@ public class ClinicasMedicas extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        listaEmpresas.clear();
-                        listaIdsEmpresas.clear();  // Limpiamos la lista de IDs
+                        listaEmpresas.clear(); // Limpiar la lista anterior
+                        listaIdsEmpresas.clear(); // Limpiar la lista de IDs
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String nombreEmpresa = document.getString("nombre");
                             listaEmpresas.add(nombreEmpresa);
-                            listaIdsEmpresas.add(document.getId());  // Guardamos el ID de cada empresa
+                            listaIdsEmpresas.add(document.getId()); // Guardar el ID de cada empresa
                         }
-                        adapter.notifyDataSetChanged();
+                        adapter.notifyDataSetChanged(); // Actualizar la lista en la UI
                     } else {
                         Toast.makeText(this, "Error al obtener empresas", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
 
     private boolean handleBottomNavigation(MenuItem item) {
         if (item.getItemId() == R.id.bottom_home) {

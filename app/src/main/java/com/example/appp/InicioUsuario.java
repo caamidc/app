@@ -27,13 +27,16 @@ public class InicioUsuario extends AppCompatActivity {
 
     private boolean handleBottomNavigation(MenuItem item) {
         if (item.getItemId() == R.id.bottom_home) {
-            return true;
+            return true; // No hacer nada si se selecciona "Inicio"
         } else if (item.getItemId() == R.id.bottom_perfil) {
-            startActivity(new Intent(this, Perfil.class));
-            finish();
+            Intent intent = new Intent(this, Perfil.class);
+            intent.putExtra("fromActivity", "InicioUsuario"); // Indicar que viene de InicioUsuario
+            startActivity(intent);
+            finish(); // Cerrar esta actividad si se navega al perfil
             return true;
         }
         return false;
     }
+
 }
 

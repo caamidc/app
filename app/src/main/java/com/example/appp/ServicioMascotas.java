@@ -95,20 +95,20 @@ public class ServicioMascotas extends AppCompatActivity {
         db.collection("prestadores")
                 .document("empresa")
                 .collection("Empresa")
-                .whereEqualTo("categoria", "Servicio Mascotas")
+                .whereEqualTo("categoria", "Servicios de Mascotas")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         listaEmpresas.clear();
-                        listaIdsEmpresas.clear();  // Limpiamos la lista de IDs
+                        listaIdsEmpresas.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String nombreEmpresa = document.getString("nombre");
                             listaEmpresas.add(nombreEmpresa);
-                            listaIdsEmpresas.add(document.getId());  // Guardamos el ID de cada empresa
+                            listaIdsEmpresas.add(document.getId());
                         }
                         adapter.notifyDataSetChanged();
                     } else {
-                        Toast.makeText(this, "Error al obtener empresas", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Error al obtener servicios", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
