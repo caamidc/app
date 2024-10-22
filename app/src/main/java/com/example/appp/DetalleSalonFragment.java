@@ -1,7 +1,9 @@
 package com.example.appp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -81,4 +83,16 @@ public class DetalleSalonFragment extends Fragment {
         });
 
         return view;
-    }}
+    }
+
+    private boolean handleBottomNavigation(MenuItem item) {
+        if (item.getItemId() == R.id.bottom_home) {
+            return true;
+        } else if (item.getItemId() == R.id.bottom_perfil) {
+            startActivity(new Intent(getActivity(), Perfil.class));
+            getActivity().finish();
+            return true;
+        }
+        return false;
+    }
+}

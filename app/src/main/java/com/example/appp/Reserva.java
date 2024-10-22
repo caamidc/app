@@ -1,20 +1,17 @@
 package com.example.appp;
 
 public class Reserva {
+    private String id;
     private String nombreEmpresa;
-
     private String ubicacion;
     private String horario;
     private String nombreContacto;
     private String correoContacto;
     private String telefonoContacto;
 
-    // Constructor vacío para Firestore
-    public Reserva() {
-    }
-
-    public Reserva(String nombreEmpresa, String ubicacion, String horario,
-                   String nombreContacto, String correoContacto, String telefonoContacto) {
+    // Constructor
+    public Reserva(String id, String nombreEmpresa, String ubicacion, String horario, String nombreContacto, String correoContacto, String telefonoContacto) {
+        this.id = id; // Guardar el ID
         this.nombreEmpresa = nombreEmpresa;
         this.ubicacion = ubicacion;
         this.horario = horario;
@@ -23,7 +20,11 @@ public class Reserva {
         this.telefonoContacto = telefonoContacto;
     }
 
-    // Getters y Setters
+    // Métodos getters
+    public String getId() {
+        return id; // Método para obtener el ID
+    }
+
     public String getNombreEmpresa() {
         return nombreEmpresa;
     }
@@ -70,5 +71,9 @@ public class Reserva {
 
     public void setTelefonoContacto(String telefonoContacto) {
         this.telefonoContacto = telefonoContacto;
+    }
+
+    public void setId(String idReserva) {
+        this.id = idReserva;
     }
 }

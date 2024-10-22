@@ -1,7 +1,9 @@
 package com.example.appp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -130,5 +132,15 @@ public class DetalleServicioFragment extends Fragment {
             horariosList.add(i + ":00 AM"); // Cambia AM por PM si es necesario
         }
     }
-}
 
+    private boolean handleBottomNavigation(MenuItem item) {
+        if (item.getItemId() == R.id.bottom_home) {
+            return true;
+        } else if (item.getItemId() == R.id.bottom_perfil) {
+            startActivity(new Intent(getActivity(), Perfil.class));
+            getActivity().finish();
+            return true;
+        }
+        return false;
+    }
+}

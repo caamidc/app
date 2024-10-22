@@ -49,7 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewTitulo" />
 
-    <!-- Campos de texto para los detalles del servicio -->
+
     <EditText
         android:id="@+id/editTextEmpresaNombre"
         android:layout_width="0dp"
@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:hint="Horario de apertura (ejemplo: 08:00am)"
+        android:hint="Horario de apertura (ejemplo: 08:00AM)"
         android:inputType="text"
         android:textColorHint="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/editTextHorarioCierre"
@@ -109,7 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:hint="Horario de cierre (ejemplo: 06:00pm)"
+        android:hint="Horario de cierre (ejemplo: 06:00PM)"
         android:inputType="text"
         android:textColorHint="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/editTextServicios"
@@ -145,7 +145,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextServicios" />
 
-    <!-- Bottom Navigation -->
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="445dp"

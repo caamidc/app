@@ -98,16 +98,21 @@ public class ConfirmacionFragment extends Fragment {
             return;
         }
 
-        // Crea una nueva instancia de la reserva
-        Reserva nuevaReserva = new Reserva(nombreEmpresa, ubicacion, horario, nombreContacto, correoContacto, telefonoContacto);
+        // Crea una nueva instancia de la reserva sin el ID inicial
+        Reserva nuevaReserva = new Reserva("", nombreEmpresa, ubicacion, horario, nombreContacto, correoContacto, telefonoContacto);
 
         // Guardar en Firestore
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        // Usar el método add para guardar y obtener el documentReference
         db.collection("usuarios").document(userId).collection("reservas")
                 .add(nuevaReserva)
                 .addOnSuccessListener(documentReference -> {
+                    // Almacena el ID de la reserva en el objeto Reserva
+                    String idReserva = documentReference.getId();
+                    nuevaReserva.setId(idReserva); // Asegúrate de tener un método setId en la clase Reserva
+
                     // Mostrar mensaje de éxito
                     Toast.makeText(getContext(), "Reserva confirmada exitosamente", Toast.LENGTH_LONG).show();
 
@@ -125,4 +130,5 @@ public class ConfirmacionFragment extends Fragment {
                 .addOnFailureListener(e -> {
                     Toast.makeText(getContext(), "Error al guardar la reserva: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
-    }}
+    }
+}
